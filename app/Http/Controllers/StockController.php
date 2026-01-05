@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Services\StockService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Exports\StockMovementExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
@@ -93,5 +96,15 @@ class StockController extends Controller
             return back()->with('error', $e->getMessage())
                         ->withInput();
         }
+    }
+    public function export(Request $request)
+    {
+        // cuma superadmin
+        abort_unless(Auth::user()->role === 'superadmin', 403);
+
+        return Excel::download(
+            new StockMovementExport($request->all()),
+            'riwayat-stok.xlsx'
+        );
     }
 }

@@ -25,6 +25,14 @@
                        class="inline-flex items-center px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700">
                         Barang Keluar
                     </a>
+                    @auth
+                    @if(auth()->user()->role === 'superadmin')
+                        <a href="{{ route('stock.history.export', request()->query()) }}"
+                        class="inline-flex items-center px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700">
+                            Export Excel
+                        </a>
+                    @endif
+                    @endauth
                 </div>
             </div>
 

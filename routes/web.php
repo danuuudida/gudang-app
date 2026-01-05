@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockMovementController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,9 +33,15 @@ Route::middleware('auth')->group(function () {
         // History
         Route::get('/history', [StockMovementController::class, 'index'])->name('history');
     });
+    Route::get('/stock/history/export', [StockController::class, 'export'])
+    ->name('stock.history.export')
+    ->middleware('auth');
 
     // Product CRUD Routes
     Route::resource('products', ProductController::class);
+
+  
+    
 });
 
 require __DIR__.'/auth.php';

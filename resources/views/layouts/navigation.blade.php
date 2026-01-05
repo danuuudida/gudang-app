@@ -1,5 +1,7 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
+<nav x-data="{ open: false }" class="sticky top-4 z-50 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-white/80 backdrop-blur-md border border-white/20 shadow-lg rounded-2xl px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
@@ -11,9 +13,11 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex text-[#87876c] border-b-2 border-[#87876c]
+">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                        
                     </x-nav-link>
 
                     <!-- Scan Menu -->
@@ -67,21 +71,23 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link 
+                            :href="auth()->user()->isSuperAdmin()
+                                ? route('users.index')
+                                : route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
+                        <!-- Logout -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
+
                 </x-dropdown>
             </div>
 
@@ -142,4 +148,8 @@
             </div>
         </div>
     </div>
+        </div>
+    </div>
+                
 </nav>
+
