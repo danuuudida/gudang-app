@@ -6,6 +6,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -39,6 +40,10 @@ Route::middleware('auth')->group(function () {
 
     // Product CRUD Routes
     Route::resource('products', ProductController::class);
+
+
+    Route::post('/products/import', [ProductController::class, 'import'])->name('products.import');
+    Route::get('/products/export', [ProductController::class, 'export'])->name('products.export');
 
   
     

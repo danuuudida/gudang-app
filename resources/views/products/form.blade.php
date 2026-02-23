@@ -52,6 +52,34 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+                        <!-- Kategori (Master Data) -->
+                        <div class="mb-4">
+                            <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">
+                                Kategori <span class="text-red-500">*</span>
+                            </label>
+
+                            <select
+                                name="category_id"
+                                id="category_id"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm
+                                    focus:border-indigo-500 focus:ring-indigo-500
+                                    @error('category_id') border-red-500 @enderror"
+                                required
+                            >
+                                <option value="">-- Pilih Kategori --</option>
+
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ old('category_id', $product->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->nama_kategori }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            @error('category_id')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
 
                         <!-- SKU (Optional) -->
                         <div class="mb-4">

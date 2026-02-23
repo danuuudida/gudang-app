@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Category;
 class Product extends Model
 {
     use HasFactory;
@@ -45,5 +45,10 @@ class Product extends Model
     public function hasEnoughStock($qty)
     {
         return $this->stok >= $qty;
+    }
+
+    public function Category()
+    {
+        return $this->hasMany(Product::class);
     }
 }
